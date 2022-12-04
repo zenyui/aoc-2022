@@ -1,10 +1,10 @@
 package day03
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strings"
+
+	"github.com/zenyui/aoc-22/util"
 )
 
 const (
@@ -22,7 +22,7 @@ func Run() error {
 }
 
 func part1() error {
-	lines, err := readFile()
+	lines, err := util.ReadFile(inputPath)
 	if err != nil {
 		return err
 	}
@@ -52,7 +52,7 @@ func part1() error {
 }
 
 func part2() error {
-	lines, err := readFile()
+	lines, err := util.ReadFile(inputPath)
 	if err != nil {
 		return err
 	}
@@ -100,27 +100,6 @@ func findGroupBadge(group []string) string {
 		}
 	}
 	return ""
-}
-
-// reads file into a channel
-func readFile() (chan string, error) {
-	file, err := os.Open(inputPath)
-	if err != nil {
-		return nil, err
-	}
-	// create output channel
-	out := make(chan string, 10)
-	// process file async
-	go func() {
-		scanner := bufio.NewScanner(file)
-		for scanner.Scan() {
-			out <- strings.TrimSpace(scanner.Text())
-		}
-		file.Close()
-		close(out)
-	}()
-	// return the channel
-	return out, nil
 }
 
 // get all letters as a map to points

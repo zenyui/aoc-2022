@@ -1,11 +1,11 @@
 package day01
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
+
+	"github.com/zenyui/aoc-22/util"
 )
 
 const inputPath = "./day01/input.txt"
@@ -21,18 +21,15 @@ func Run() error {
 }
 
 func Part1() error {
-	file, err := os.Open(inputPath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-
 	maxSum := 0
 	currentSum := 0
 
-	for scanner.Scan() {
-		if line := strings.TrimSpace(scanner.Text()); len(line) > 0 {
+	lines, err := util.ReadFile(inputPath)
+	if err != nil {
+		return err
+	}
+	for line := range lines {
+		if line = strings.TrimSpace(line); len(line) > 0 {
 			lineInt, err := strconv.Atoi(line)
 			if err != nil {
 				return err
@@ -50,21 +47,17 @@ func Part1() error {
 }
 
 func Part2() error {
-	// open file lazily
-	file, err := os.Open(inputPath)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	// create a buffer scan of the file split by lines
-	scanner := bufio.NewScanner(file)
 	// store top 3 calorie counts descending
 	top3 := make([]int, 3)
 	// store current elf's calories
 	currentSum := 0
 	// enumerate lines of file
-	for scanner.Scan() {
-		if line := strings.TrimSpace(scanner.Text()); len(line) > 0 {
+	lines, err := util.ReadFile(inputPath)
+	if err != nil {
+		return err
+	}
+	for line := range lines {
+		if line = strings.TrimSpace(line); len(line) > 0 {
 			lineInt, err := strconv.Atoi(line)
 			if err != nil {
 				return err
