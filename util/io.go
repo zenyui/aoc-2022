@@ -3,7 +3,6 @@ package util
 import (
 	"bufio"
 	"os"
-	"strings"
 )
 
 // ReadFile reads file per line into a channel
@@ -18,7 +17,7 @@ func ReadFile(path string) (chan string, error) {
 	go func() {
 		scanner := bufio.NewScanner(file)
 		for scanner.Scan() {
-			out <- strings.TrimSpace(scanner.Text())
+			out <- scanner.Text()
 		}
 		file.Close()
 		close(out)
