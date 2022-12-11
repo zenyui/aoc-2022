@@ -34,7 +34,6 @@ func Run() error {
 			if len(lineSplit) > 2 {
 				ending = lineSplit[2]
 			}
-			// fmt.Printf("%s | %s\n", currentCmd, ending)
 			switch currentCmd {
 			case "cd":
 				switch ending {
@@ -53,7 +52,6 @@ func Run() error {
 					}
 					currentLocation = folder
 				}
-				// fmt.Printf("loc --> %s\n", currentLocation.AbsPath())
 
 			case "ls":
 				// we are listing now
